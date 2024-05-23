@@ -1,0 +1,34 @@
+###
+
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+    "mailId" : "admin@test.com",
+    "password" : "adminadmin"
+}
+
+###
+
+###
+POST http://localhost:3000/user/signup
+Content-Type: application/json
+
+{
+    "userName" : "admin",
+    "mailId" : "admin@test.com",
+    "password" : "adminadmin"
+}
+###
+
+###
+//logout
+POST http://localhost:3000/user/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxNjQ1NTA1MiwiZXhwIjoxNzE2NDU2ODUyfQ.0YE5UVPg2W87pUvQsM8WJUf0Hkkm4k_7WWokOpPRIpY
+###
+
+###
+//refresh
+Get http://localhost:3000/user/refresh
+
+###

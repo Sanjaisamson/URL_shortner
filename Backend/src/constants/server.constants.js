@@ -1,0 +1,9 @@
+const RESPONSE_STATUS_CONSTANTS = {
+  SUCCESS: 200 || 201,
+  FAILED: 400 || 401,
+  SERVER_ERROR: 500,
+};
+
+module.exports = {
+  RESPONSE_STATUS_CONSTANTS,
+};
