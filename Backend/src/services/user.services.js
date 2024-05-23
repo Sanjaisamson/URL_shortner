@@ -56,6 +56,7 @@ async function loginUser(mailId, password) {
     }
     // if user is valid generate JWT tokens and return the tokens
     const tokens = await generateTokens(user.id);
+    console.log("user", user.id);
     await saveToken(user.id, tokens.refreshToken);
     return tokens;
   } catch (error) {

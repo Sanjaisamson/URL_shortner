@@ -42,6 +42,7 @@ async function refreshTokenVerification(req, res) {
       refreshToken,
       authConfig.secrets.refreshToken
     );
+    console.log("decoded", decodedToken);
     const user = await Tokens.findOne({
       where: {
         user_id: decodedToken.userId,
@@ -50,6 +51,7 @@ async function refreshTokenVerification(req, res) {
     if (!user || user.length == 0) {
       throw new Error("Invalid user");
     }
+    console.log(user);
     const newToken = await userServices.generateTokens(user.id);
     return res.send({
       accessToken: newToken.accessToken,
