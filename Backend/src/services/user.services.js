@@ -29,7 +29,6 @@ async function createUser(userName, mailId, password) {
     }
     // if existed throw error to catch
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }
@@ -42,7 +41,6 @@ async function loginUser(mailId, password) {
         mail: mailId,
       },
     });
-    console.log(user);
     // if user doesn't exist
     if (!user) {
       throw new Error("User doesn't exist");
@@ -50,13 +48,11 @@ async function loginUser(mailId, password) {
     // verify the user using bcrypt.compare
     const isVerified = await bcrypt.compare(password, user.password);
     // if user is not valid
-    console.log(isVerified);
     if (!isVerified) {
       throw new Error("Incorrect credentials!!!");
     }
     // if user is valid generate JWT tokens and return the tokens
     const tokens = await generateTokens(user.id);
-    console.log("user", user.id);
     await saveToken(user.id, tokens.refreshToken);
     return tokens;
   } catch (error) {
@@ -66,16 +62,18 @@ async function loginUser(mailId, password) {
 
 async function generateTokens(userId) {
   try {
-    console.log(userId);
+    //generate tokens
     const accessToken = jwt.sign({ userId }, authConfig.secrets.accessToken, {
       expiresIn: authConfig.tokenExpiry.accessTokenExp,
     });
     const refreshToken = jwt.sign({ userId }, authConfig.secrets.refreshToken, {
       expiresIn: authConfig.tokenExpiry.refreshTokenExp,
     });
+    // if no tokens genrated throw an error
     if (!accessToken || !refreshToken) {
       throw new Error("tokens not generated");
     }
+    //response
     return { accessToken: accessToken, refreshToken: refreshToken };
   } catch (err) {
     throw err;
@@ -84,8 +82,9 @@ async function generateTokens(userId) {
 
 async function saveToken(userId, refreshToken) {
   try {
-    console.log("user id", userId);
+    // find user has existing token
     const user = await Tokens.findOne({ where: { user_id: userId } });
+    // if no create new instance
     if (!user || user.length === 0) {
       await Tokens.create({
         user_id: userId,
@@ -93,6 +92,7 @@ async function saveToken(userId, refreshToken) {
       });
       return;
     } else {
+      // otherwise update the token
       user.refresh_token = refreshToken;
       await user.save();
       return;
@@ -104,11 +104,13 @@ async function saveToken(userId, refreshToken) {
 
 async function logoutUser(userId) {
   try {
+    // delete the refresh token
     const user = await Tokens.destroy({
       where: {
         user_id: userId,
       },
     });
+    //  if user doesnt exist
     if (!user || user.length === 0) {
       throw new Error("Invalid user");
     }

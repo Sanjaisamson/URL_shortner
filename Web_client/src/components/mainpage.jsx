@@ -12,16 +12,14 @@ export const MainPage = () => {
     const navigate = useNavigate();
     const [url, setUrl] = useState("");
     const [customBackhalf, setCustomBackHalf] = useState("");
-    const [loginStatus, setLoginStatus] = useState("");
 
     async function refreshAccessToken() {
         try {
           const response = await axios.get(
-            `http://localhost:3000/user/refresh`,{ withCredentials: true }
+            `${CONSTANTS.API_URL}/user/refresh`,{ withCredentials: true }
           );
           if (response.status === CONSTANTS.RESPONSE_STATUS.SUCCESS) {
             const responseData = response.data;
-            console.log("Access token",responseData)
             return responseData.accessToken;
           } else {
             navigate("/login");
@@ -40,7 +38,7 @@ export const MainPage = () => {
           });
           localStorage.setItem('actualUrl',url);
           const response = await axios.post(
-            `http://localhost:3000/url/create`,
+            `${CONSTANTS.API_URL}/url/create`,
             requestData,
             {
               headers: {
@@ -51,17 +49,12 @@ export const MainPage = () => {
             }
           );
           if (response.status === CONSTANTS.RESPONSE_STATUS.SUCCESS) {
-            setLoginStatus(CONSTANTS.STATUS_CONSTANTS.COMPLETED);
-            console.log(response.data)
             localStorage.setItem('shortUrl',response.data);
-            console.log("url created successfully....");
             navigate("/output")
           } else {
             throw new Error(CONSTANTS.RESPONSE_STATUS.FAILED);
           }
         } catch (error) {
-            console.log("error", error);
-            setLoginStatus(CONSTANTS.STATUS_CONSTANTS.FAILED);
             navigate("/dashboard")
           }
     }  

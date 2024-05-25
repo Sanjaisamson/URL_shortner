@@ -30,7 +30,6 @@ async function createLink(req, res) {
 
 async function handleVisits(req, res) {
   try {
-    console.log("controller visited");
     const link_code = req.params.code;
     const link_id = parseInt(req.params.id);
 
@@ -61,7 +60,6 @@ async function handleVisits(req, res) {
     //redirect to actual url
     return res.redirect(307, actualLink);
   } catch (error) {
-    console.log(error);
     return res.status(RESPONSE_STATUS_CONSTANTS.FAILED);
   }
 }
@@ -71,7 +69,6 @@ async function getLinks(req, res) {
     const links = await urlServices.getLinks(req.user.id);
     return res.status(RESPONSE_STATUS_CONSTANTS.SUCCESS).json(links);
   } catch (error) {
-    console.log(error);
     return res.status(RESPONSE_STATUS_CONSTANTS.FAILED);
   }
 }

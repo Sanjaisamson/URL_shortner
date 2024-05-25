@@ -35,7 +35,12 @@
     color: black;
     padding: 20px;
 }
-
+.content-text{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+}
 .content-cards{
     margin: 100px 0px;
     border: 1px solid #ccc;

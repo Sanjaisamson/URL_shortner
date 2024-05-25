@@ -17,11 +17,9 @@ async function createUser(req, res) {
 
 async function loginUser(req, res) {
   try {
-    console.log("call for login");
     // call loginUser service
     const { mailId, password } = req.body;
     const loginResponse = await userServices.loginUser(mailId, password);
-    console.log(mailId, password);
     // set cookie as rtoken
     res.cookie("rtoken", loginResponse.refreshToken, {
       sameSite: "None",

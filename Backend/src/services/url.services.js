@@ -22,7 +22,6 @@ async function createLink(url, url_code, userId) {
 }
 async function handleVisits(link_code, link_id) {
   try {
-    console.log("visited");
     // check the db for the actual db corresponding to the link _id
     const link = await Link.findOne({
       where: {
@@ -41,7 +40,6 @@ async function handleVisits(link_code, link_id) {
 }
 async function handleLog(link_id, deviceType, deviceVendor, deviceModel) {
   try {
-    console.log("log handled");
     // Get the date and time when the URL was clicked
     const clickedDate = new Date().toLocaleDateString([], {
       year: "numeric",
@@ -53,7 +51,6 @@ async function handleLog(link_id, deviceType, deviceVendor, deviceModel) {
       minute: "2-digit",
       second: "2-digit",
     });
-    console.log("hiii");
     // save the data on db
     await Logs.create({
       link_id: link_id,
@@ -63,13 +60,13 @@ async function handleLog(link_id, deviceType, deviceVendor, deviceModel) {
       clicked_time: clickedTime,
       clicked_date: clickedDate,
     });
-
+    // get the click counts
     const clickCounts = await Logs.findAll({
       where: {
         link_id: link_id,
       },
     });
-    console.log("click count", clickCounts.length);
+    //  update the click number in the links table
     const currentLink = await Link.findOne({
       where: {
         id: link_id,

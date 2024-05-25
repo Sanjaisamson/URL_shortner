@@ -1,29 +1,27 @@
 import { useState } from 'react';
-import '../styles/login.css'
+import '../styles/register.css'
 import axios from 'axios';
 import CONSTANTS from '../constants/constants'
 import {Button, Card, Input, Form } from 'antd';
 import {useNavigate} from 'react-router-dom'
 
 
-export const Login = () => {
+export const Register = () => {
     const navigate = useNavigate();
+    const [username, setUsername] = useState("")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [loginStatus, setLoginStatus] = useState("");
+    const [registerStatus, setRegisterStatus] = useState("");
 
-  const handleRegister = () => {
-    navigate('/register');
-  };
-
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     try {
       const requestData = JSON.stringify({
+        userName:username,
         mailId: email,
         password: password,
       });
       const response = await axios.post(
-        `${CONSTANTS.API_URL}/user/login`,
+        `${CONSTANTS.API_URL}/user/signup`,
         requestData,
         {
           headers: {
@@ -33,25 +31,38 @@ export const Login = () => {
         }
       );
       if (response.status === CONSTANTS.RESPONSE_STATUS.SUCCESS) {
-        setLoginStatus(CONSTANTS.STATUS_CONSTANTS.COMPLETED);
-        navigate("/dashboard")
+        setRegisterStatus(CONSTANTS.STATUS_CONSTANTS.COMPLETED);
+        navigate("/")
       } else {
         throw new Error(CONSTANTS.RESPONSE_STATUS.FAILED);
       }
     } catch (error) {
-        setLoginStatus(CONSTANTS.STATUS_CONSTANTS.FAILED);
+        setRegisterStatus(CONSTANTS.STATUS_CONSTANTS.FAILED);
       }
 }  
 
   return (
-      <div className="loginContainer">
-        <div className='login-wrapper'>
-        <div className='section-1'>
-            <div className='login-card'>
+      <div className="reg-Container">
+        <div className='reg-wrapper'>
+        <div className='reg-section-1'>
+            <div className='reg-card'>
             <Card style={{ width: 350, height: 500, boxShadow: 20, backgroundColor:'#e6e6e6'}}>
                 <Form>
-                  <h2>Welcome back</h2>
-                  <p>Enter to explore All the features</p>
+                <div className='reg-card-header'>
+                  <h2>Welcome</h2>
+                  <p>Register An account to explore All the features</p>
+                  </div>
+                  <Form.Item
+                    name="username"
+                    rules={[{ required: true, message: 'Please input your username!' }]}
+                  >
+                    <Input
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      placeholder="Username"
+                      style={{ width: 250 }}
+                    />
+                  </Form.Item>
                   <Form.Item
                     name="email"
                     rules={[{ required: true, message: 'Please input your email!' }]}
@@ -74,29 +85,22 @@ export const Login = () => {
                       style={{ width: 250 }}
                     />
                   </Form.Item>
-                  <Button onClick={handleLogin} type="primary">
-                    Login
+                  <Button onClick={handleRegister} type="primary">
+                    Register
                   </Button>
-                  <p>---------------------- or -----------------------</p>
-                  <div className='login-card-new-account-section'>
-                  <p>Don't Have an account?</p>
-                  <Button onClick={handleRegister} type="primary" style={{width:200, alignSelf:"center"}}>
-                    Create new account
-                  </Button>
-                  </div>
               </Form>
-              {loginStatus === CONSTANTS.STATUS_CONSTANTS.COMPLETED && (
-                <p style={{color:"green"}}>Login Successful!</p>
+              {registerStatus === CONSTANTS.STATUS_CONSTANTS.COMPLETED && (
+                <p style={{color:"green"}}>Registration Successful!</p>
               )}
-              {loginStatus === CONSTANTS.STATUS_CONSTANTS.FAILED && (
+              {registerStatus === CONSTANTS.STATUS_CONSTANTS.FAILED && (
                 <p style={{color:"red"}}>
-                  Login Failed. Please try again.
+                  Registration Failed. Please try again.
                 </p>
               )}
             </Card>
         </div>
         </div>
-        <div className='section-2'>
+        <div className='reg-section-2'>
             
         </div>
         </div>

@@ -1,14 +1,14 @@
-.loginContainer{
+.reg-Container{
     background-color:black;
     height: auto;
     width: auto;
 }
-.login-wrapper{
+.reg-wrapper{
     display:flex;
     background-color: black;/*rgb(238, 235, 232);*/
     padding: 10%;
 }
-.section-1{
+.reg-section-1{
     width:50%;
     display: flex;
     justify-content: center;
@@ -22,7 +22,10 @@
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
 }
-.section-2{
+.reg-card-header{
+    padding: 20px 0px;
+}
+.reg-section-2{
     width:50%;
     height: 700px;
     color: black;
@@ -34,7 +37,7 @@
     background-position: center; /* Center the image */
     background-size: cover; /* Resize the background image to cover the entire container */
 }
-.login-card .ant-card-body{
+.reg-card .ant-card-body{
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -43,7 +46,7 @@
     justify-content: flex-end;
     align-content: center;
 }
-.login-card-new-account-section{
+.reg-card-new-account-section{
     padding: 30px 0px;
     display: flex;
     flex-direction: column;

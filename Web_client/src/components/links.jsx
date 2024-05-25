@@ -5,18 +5,12 @@ import CONSTANTS from '../constants/constants'
 import {UserCircle2Icon} from "lucide-react"
 import axios from 'axios';
 import { CardStructure } from './linkCards';
-import {Button, Flex, Space, Form, Input } from 'antd';
+import {Button} from 'antd';
 import {useNavigate} from 'react-router-dom'
 
 
 export const LinksPage = () => {
     const navigate = useNavigate();
-    const [shortUrl, setShortUrl] = useState("");
-    const [actualUrl, setActualUrl] = useState("");
-    const [time, setTime] = useState('')
-    const [date, setDate] = useState('')
-    const [customBackhalf, setCustomBackHalf] = useState("");
-    const [loginStatus, setLoginStatus] = useState("");
     const [dbData, setDbData] = useState([]);
 
     useEffect(() => {
@@ -29,7 +23,6 @@ export const LinksPage = () => {
           );
           if (response.status === CONSTANTS.RESPONSE_STATUS.SUCCESS) {
             const responseData = response.data;
-            console.log("Access token",responseData)
             return responseData.accessToken;
           } else {
             navigate("/login");
@@ -58,8 +51,6 @@ export const LinksPage = () => {
             throw new Error(CONSTANTS.RESPONSE_STATUS.FAILED);
           }
         } catch (error) {
-            console.log("error", error);
-            setLoginStatus(CONSTANTS.STATUS_CONSTANTS.FAILED);
             navigate("/dashboard")
           } 
     }

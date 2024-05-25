@@ -13,8 +13,6 @@ export const OutputPage = () => {
     const [actualUrl, setActualUrl] = useState("");
     const [time, setTime] = useState('')
     const [date, setDate] = useState('')
-    const [customBackhalf, setCustomBackHalf] = useState("");
-    const [loginStatus, setLoginStatus] = useState("");
 
     useEffect(() => {
       getData();
@@ -23,7 +21,6 @@ export const OutputPage = () => {
       try {
         const shortUrl = localStorage.getItem('shortUrl');
         const actualUrl = localStorage.getItem('actualUrl')
-        console.log(shortUrl)
         setShortUrl(shortUrl)
         setActualUrl(actualUrl)
         const time = new Date().toLocaleTimeString([], {
@@ -36,12 +33,9 @@ export const OutputPage = () => {
           day: "numeric",
           weekday: "long",
         })
-        console.log(time, date)
         setTime(time)
         setDate(date)
       } catch (error) {
-        console.log("error", error);
-        setLoginStatus(CONSTANTS.STATUS_CONSTANTS.FAILED);
         navigate("/dashboard")
       }
     }
