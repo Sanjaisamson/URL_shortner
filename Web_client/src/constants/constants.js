@@ -13,8 +13,10 @@ const STATUS_CONSTANTS = {
   PROGRESS: "On-progress",
   ERROR: "Error",
 };
+const API_URL = import.meta.env.VITE_API_URL;
 export default {
   SERVER_CONSTANTS,
   RESPONSE_STATUS,
   STATUS_CONSTANTS,
+  API_URL,
 };

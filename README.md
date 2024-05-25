@@ -19,7 +19,8 @@ This is the repository for URL_Shortner application.
 
 1. Code editor: Visual Studio Code
 2. VS code extensions:
-    - Prettier
+   - Prettier
+
 ## Libraries used:
 
 1. Ant Designs - For UI development.
@@ -36,11 +37,12 @@ This is the repository for URL_Shortner application.
 
 ## Development setup
 
-1. Done  `npm install` for `Backend` and `Frontend -> url_shortner` seperatly
-2. set up the .env file with Token_secrets and port number
-3. Run dev react server with the command mentioned in the package.json file.
-4. Run dev Node server with the command mentioned in the package.json file.
+1. Do `npm install` inside `Backend` directory and npm install inside `Web_client` directory seperatly.
+2. Need to setup .env file for both backend and Web_client, you can refer `.env-example` file (you can just copy and rename the same file to`.env`, the project will run).
+3. Run dev react server with the command mentioned in the package.json file.(`npm start`)
+4. Run dev Node server with the command mentioned in the package.json file.(`npm run dev`)
 
 ## Testing
+
 - Backend unit testing is done by `.rest`
 - Front-end tesing is done manually

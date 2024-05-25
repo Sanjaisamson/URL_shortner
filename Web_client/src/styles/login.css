@@ -29,7 +29,7 @@
     border-radius: 30px;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
-    background-image: url("C:\\Users\\SANJAI\\OneDrive\\Documents\\Projects\\URL_shortner\\Frontend\\url_shortner\\src\\assets\\login_img.png");
+    background-image: url("../assets/login_img.png");
     background-repeat: no-repeat;
     background-position: center; /* Center the image */
     background-size: cover; /* Resize the background image to cover the entire container */

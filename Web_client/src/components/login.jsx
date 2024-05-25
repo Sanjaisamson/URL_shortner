@@ -2,7 +2,7 @@ import { useState } from 'react';
 import '../styles/login.css'
 import axios from 'axios';
 import CONSTANTS from '../constants/constants'
-import {Button, Flex, Card, Space, Input, Form } from 'antd';
+import {Button, Card, Input, Form } from 'antd';
 import {useNavigate} from 'react-router-dom'
 
 
@@ -25,7 +25,7 @@ export const Login = () => {
       console.log("Data",email, password)
       console.log(requestData)
       const response = await axios.post(
-        `http://localhost:3000/user/login`,
+        `${CONSTANTS.API_URL}/user/login`,
         requestData,
         {
           headers: {
@@ -37,7 +37,7 @@ export const Login = () => {
       if (response.status === CONSTANTS.RESPONSE_STATUS.SUCCESS) {
         setLoginStatus(CONSTANTS.STATUS_CONSTANTS.COMPLETED);
         console.log("user logged in successfully....");
-        navigate("/url")
+        navigate("/dashboard")
       } else {
         throw new Error(CONSTANTS.RESPONSE_STATUS.FAILED);
       }
