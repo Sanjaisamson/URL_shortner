@@ -22,6 +22,7 @@ async function createLink(url, url_code, userId) {
 }
 async function handleVisits(link_code, link_id) {
   try {
+    console.log("visited");
     // check the db for the actual db corresponding to the link _id
     const link = await Link.findOne({
       where: {
@@ -38,15 +39,21 @@ async function handleVisits(link_code, link_id) {
     throw error;
   }
 }
-async function handleLog(
-  link_id,
-  deviceType,
-  deviceVendor,
-  deviceModel,
-  clickedTime,
-  clickedDate
-) {
+async function handleLog(link_id, deviceType, deviceVendor, deviceModel) {
   try {
+    console.log("log handled");
+    // Get the date and time when the URL was clicked
+    const clickedDate = new Date().toLocaleDateString([], {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+    });
+    const clickedTime = new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+    console.log("hiii");
     // save the data on db
     await Logs.create({
       link_id: link_id,
@@ -56,7 +63,36 @@ async function handleLog(
       clicked_time: clickedTime,
       clicked_date: clickedDate,
     });
+
+    const clickCounts = await Logs.findAll({
+      where: {
+        link_id: link_id,
+      },
+    });
+    console.log("click count", clickCounts.length);
+    const currentLink = await Link.findOne({
+      where: {
+        id: link_id,
+      },
+    });
+    currentLink.clicks = clickCounts.length;
+    await currentLink.save();
     return;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getLinks(userId) {
+  try {
+    const links = await Link.findAll({
+      where: {
+        user_id: userId,
+      },
+      order: [["createdAt", "DESC"]], // Order by updatedAt column in descending order
+      limit: 5,
+    });
+    return links;
   } catch (error) {
     throw error;
   }
@@ -65,4 +101,5 @@ module.exports = {
   createLink,
   handleVisits,
   handleLog,
+  getLinks,
 };

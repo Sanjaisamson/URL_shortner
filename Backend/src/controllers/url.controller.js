@@ -22,9 +22,7 @@ async function createLink(req, res) {
     const response = await urlServices.createLink(url, url_code, userId);
 
     // response
-    return res
-      .status(RESPONSE_STATUS_CONSTANTS.SUCCESS)
-      .json({ short_url: response });
+    return res.status(RESPONSE_STATUS_CONSTANTS.SUCCESS).json(response);
   } catch (error) {
     return res.status(RESPONSE_STATUS_CONSTANTS.FAILED);
   }
@@ -32,6 +30,7 @@ async function createLink(req, res) {
 
 async function handleVisits(req, res) {
   try {
+    console.log("controller visited");
     const link_code = req.params.code;
     const link_id = parseInt(req.params.id);
 
@@ -44,17 +43,13 @@ async function handleVisits(req, res) {
     const deviceVendor = parser.getDevice().vendor || "Unknown";
     const deviceModel = parser.getDevice().model || "Unknown";
 
-    // Get the date and time when the URL was clicked
-    const clickedDate = new Date().toLocaleDateString([], {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-    });
-    const clickedTime = new Date().toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    });
+    // call for save the log details
+    const logDetails = await urlServices.handleLog(
+      link_id,
+      deviceType,
+      deviceVendor,
+      deviceModel
+    );
 
     // call for get the actual link
     const actualLink = await urlServices.handleVisits(link_code, link_id);
@@ -63,19 +58,18 @@ async function handleVisits(req, res) {
     if (!actualLink) {
       return res.status(404).json("url not Found");
     }
-
-    // call for save the log details
-    const logDetails = await urlServices.handleLog(
-      link_id,
-      deviceType,
-      deviceVendor,
-      deviceModel,
-      clickedTime,
-      clickedDate
-    );
-
     //redirect to actual url
-    return res.redirect(301, actualLink);
+    return res.redirect(307, actualLink);
+  } catch (error) {
+    console.log(error);
+    return res.status(RESPONSE_STATUS_CONSTANTS.FAILED);
+  }
+}
+
+async function getLinks(req, res) {
+  try {
+    const links = await urlServices.getLinks(req.user.id);
+    return res.status(RESPONSE_STATUS_CONSTANTS.SUCCESS).json(links);
   } catch (error) {
     console.log(error);
     return res.status(RESPONSE_STATUS_CONSTANTS.FAILED);
@@ -85,4 +79,5 @@ async function handleVisits(req, res) {
 module.exports = {
   createLink,
   handleVisits,
+  getLinks,
 };

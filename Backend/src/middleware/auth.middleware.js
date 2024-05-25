@@ -38,6 +38,7 @@ async function refreshTokenVerification(req, res) {
   try {
     console.log("call for refesh token");
     const refreshToken = req.cookies.rtoken;
+    console.log(req.cookies);
     const decodedToken = jwt.verify(
       refreshToken,
       authConfig.secrets.refreshToken
