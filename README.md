@@ -46,3 +46,41 @@ This is the repository for URL_Shortner application.
 
 - Backend unit testing is done by `.rest`
 - Front-end tesing is done manually
+
+## Screenshots of UI
+
+### Login page
+
+<img src="./Screenshots/login-page.png" width="600" height="400">
+
+This is the user interface which user can Login to the system
+
+### Register page
+
+<img src="./Screenshots/register-page.png" width="600" height="400">
+
+This the UI for user to register as a new user
+
+### Dashboard page
+
+<img src="./Screenshots/dashboard-page.png" width="600" height="400">
+
+This is the user interface were the user can reach after login and from here the user can create new url or got to view previous urls
+
+### Url-creating page
+
+<img src="./Screenshots/url-page.png" width="600" height="400">
+
+Here user can add the Long url and add a custonm url name if needed (optional)
+
+### Output page
+
+<img src="./Screenshots/output-page.png" width="600" height="400">
+
+Here user can get the short url and its details when user hits the create butoon on the url-creating page
+
+### Previous-links page
+
+<img src="./Screenshots/links-page.png" width="600" height="400">
+
+Here user can view all the previous links in which he has created
