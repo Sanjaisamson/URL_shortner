@@ -3,7 +3,7 @@ import '../styles/mainPage.css'
 import logo from '../assets/logo_.avif';
 import {UserCircle2Icon} from "lucide-react"
 import axios from 'axios';
-import {Button, Flex, Card, Space, Form, Input } from 'antd';
+import {Button,Card, Form, Input } from 'antd';
 import CONSTANTS from '../constants/constants';
 import {useNavigate} from 'react-router-dom'
 

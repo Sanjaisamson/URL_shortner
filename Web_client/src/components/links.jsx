@@ -56,14 +56,14 @@ export const LinksPage = () => {
     }
     const cardData = dbData.map(item => ({
         title: 'Title',
-        link_id: item.id, // Assuming your database row has a 'title' column
-        shortUrl: item.short_url, // Assuming your database row has an 'imageUrl' column
+        link_id: item.id, 
+        shortUrl: item.short_url, 
         actualUrl: item.url,
         clicks: item.clicks,
         created_time: new Date(item.createdAt).toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
-          }), // Assuming your database row has a 'description' column
+          }), 
         created_date: new Date(item.createdAt).toLocaleDateString([], {
             year: "numeric",
             month: "long",
