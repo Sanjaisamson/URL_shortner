@@ -34,7 +34,7 @@ export const MainPage = () => {
             const accessToken = await refreshAccessToken()
           const requestData = JSON.stringify({
             url: url,
-            customBackhalf: customBackhalf,
+            customBackHalf: customBackhalf,
           });
           localStorage.setItem('actualUrl',url);
           const response = await axios.post(
